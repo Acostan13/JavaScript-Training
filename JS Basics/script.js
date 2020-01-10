@@ -498,14 +498,55 @@ var Mark = {
     }
 }
 
-Mark.calcBMI()
-John.calcBMI()
 
-
-if (Mark.BMI > John.BMI) {
+if (Mark.calcBMI() > John.calcBMI()) {
     console.log(`${Mark.fullName} has a higher BMI of ${Mark.BMI} than ${John.fullName} does which is ${John.BMI}`)
 } else if (John.BMI > Mark.BMI) {
     console.log(`${John.fullName} has a higher BMI of ${John.BMI} than ${Mark.fullName} does which is ${Mark.BMI}`)
 } else {
     console.log(`${John.fullName} and ${Mark.fullName} have the same BMI of ${John.BMI}`)
+}
+
+/*****************************
+* Loops and iteration
+*/
+
+// for loop
+for (var i = 1; i <= 20; i += 2) {
+    console.log(i);
+}
+
+// i = 0, 0 < 10 true, log i to console, i++
+// i = 1, 1 < 10 true, log i to the console, i++
+//...
+// i = 9, 9 < 10 true, log i to the console, i++
+// i = 10, 10 < 10 FALSE, exit the loop!
+
+var john = ['John', 'Smith', 1990, 'designer', false, 'blue'];
+for (var i = 0; i < john.length; i++) {
+    console.log(john[i]);
+}
+
+// While loop
+var i = 0;
+while(i < john.length) {
+    console.log(john[i]);
+    i++;
+}
+
+// continue and break statements
+var john = ['John', 'Smith', 1990, 'designer', false, 'blue'];
+for (var i = 0; i < john.length; i++) {
+    if (typeof john[i] !== 'string') continue;
+    console.log(john[i]);
+}
+
+for (var i = 0; i < john.length; i++) {
+    if (typeof john[i] !== 'string') break;
+    console.log(john[i]);
+}
+
+// Looping backwards
+for (var i = john.length - 1; i >= 0; i--) {
+    console.log(john[i]);
 }
