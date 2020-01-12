@@ -24,3 +24,38 @@ function foo() {
 
 foo();
 console.log(age); // prints from outside/global scope
+
+/////////////////////////////////////
+// Lecture: Scoping
+
+
+// First scoping example
+var a = 'Hello!'; // global var
+first();
+
+function first() {
+    var b = 'Hi!';
+    second();
+    function second() {
+        var c = 'Hey!';
+        console.log(a + b + c); // all in scope
+    }
+}
+
+// Example to show the differece between execution stack and scope chain
+var a = 'Hello!';
+first();
+function first() {
+    var b = 'Hi!';
+    second();
+    function second() {
+        var c = 'Hey!';
+        third()
+    }
+}
+
+function third() {
+    var d = 'John';
+    //console.log(c); => undefined
+    console.log(a+d); // all in scope
+}
