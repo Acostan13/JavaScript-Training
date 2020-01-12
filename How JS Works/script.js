@@ -59,3 +59,38 @@ function third() {
     //console.log(c); => undefined
     console.log(a+d); // all in scope
 }
+
+/////////////////////////////////////
+// Lecture: The this keyword
+
+
+//console.log(this); => shows data from window aka browser object
+calculateAge(1985);
+function calculateAge(year) {
+    console.log(2016 - year);
+    console.log(this); // => shows data from window aka browser object
+}
+
+var john = {
+    name: 'John',
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        console.log(this); // Object {name: 'John', yearOfBirth: 1990}
+        console.log(2016 - this.yearOfBirth); // 26
+        
+        function innerFunction() {
+            console.log(this); // => shows data from window aka browser object
+        }
+        innerFunction();
+    }
+}
+
+john.calculateAge();
+
+var mike = {
+    name: 'Mike',
+    yearOfBirth: 1984
+};
+
+mike.calculateAge = john.calculateAge; // Method Borrowing
+mike.calculateAge(); // 32
