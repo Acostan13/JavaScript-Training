@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 // Global Variables
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll;
 
 // Starts the game
 init();
@@ -18,25 +18,41 @@ init();
 document.querySelector(".btn-roll").addEventListener("click", function () {
   // Checks if the game is playing by not allowing the user to roll the dice again
   if (gamePlaying) {
-    // 1. Random number
+    // Random dice value
     var dice = Math.floor(Math.random() * 6) + 1;
+    // var dice = Math.floor(Math.random() * 2) + 5;
 
-    // 2. Display the result
+    // Display the result
     var diceDOM = document.querySelector(".dice");
     diceDOM.src = "dice-" + dice + ".png";
     diceDOM.style.display = "block";
 
-    // 3. Update the round score IF the rolled number was NOT a 1
-    if (dice !== 1) {
+    // If the previous and current roll is equal to 6, reset the players entire score
+    if (previousRoll === 6 && dice == 6) {
+      console.log("fuasdf workd!");
+      roundScore = 0;
+      scores[activePlayer] = 0;
+      // document.querySelector('#current-' + activePlayer).textContent = 0
+      // document.querySelector("#score-" + activePlayer).textContent = 0
+      previousRoll = 0;
+
+      nextPlayer();
+    }
+    // Update the round score IF the rolled number was NOT a 1
+    else if (dice !== 1) {
       // Add Score
       roundScore += dice;
       document.querySelector(
         "#current-" + activePlayer
       ).textContent = roundScore;
+      previousRoll = dice;
     } else {
       // Next Player
+      previousRoll = dice;
       nextPlayer();
     }
+  } else {
+    previousRoll = 0;
   }
 });
 
@@ -51,7 +67,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       scores[activePlayer];
 
     // Check if player won the game
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 0) {
       document.querySelector("#name-" + activePlayer).textContent = "Winner!";
       document.querySelector(".dice").style.display = "none";
       document
