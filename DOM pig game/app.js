@@ -9,19 +9,11 @@ GAME RULES:
 
 */
 
+// Global Variables
 var scores, roundScore, activePlayer
 
-scores = [0,0]
-roundScore = 0
-activePlayer = 0
-
-document.querySelector('.dice').style.display = 'none'
-
-// Selecting elements by ID is slightly faster than querySelector
-document.getElementById('score-0').textContent = '0'
-document.getElementById('score-1').textContent = '0'
-document.getElementById('current-0').textContent = '0'
-document.getElementById('current-1').textContent = '0'
+// Starts the game
+init()
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
     // 1. Random number
@@ -82,6 +74,36 @@ function nextPlayer() {
 
     // Hiding dice when player rolls a one
     document.querySelector('.dice').style.display = 'none'
+}
+
+// Starts a new game
+document.querySelector('.btn-new').addEventListener('click', init)
+
+// Refreshes the game data and display
+function init() {
+    scores = [0,0]
+    roundScore = 0
+    activePlayer = 0
+
+    // Hides the dice before first roll
+    document.querySelector('.dice').style.display = 'none'
+
+    // Setting the scores back to zero
+    // Selecting elements by ID is slightly faster than querySelector
+    document.getElementById('score-0').textContent = '0'
+    document.getElementById('score-1').textContent = '0'
+    document.getElementById('current-0').textContent = '0'
+    document.getElementById('current-1').textContent = '0'
+
+    // Setting names back to original display
+    document.getElementById('name-0').textContent = 'Player 1'
+    document.getElementById('name-1').textContent = 'Player 2'
+    document.querySelector('.player-0-panel').classList.remove('winner')
+    document.querySelector('.player-1-panel').classList.remove('winner')
+    document.querySelector('.player-1-panel').classList.remove('active')
+
+    // Setting active class back to player 1
+    document.querySelector('.player-0-panel').classList.add('active')
 }
 
 
