@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 // Global Variables
-var scores, roundScore, activePlayer, gamePlaying, previousRoll, previousRoll2, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll, previousRoll2;
 
 // Starts the game
 init();
@@ -23,53 +23,40 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     var dice2 = Math.floor(Math.random() * 6) + 1;
 
     // Display the resulting die rolls
-    var diceDOM = document.querySelector(".dice");
+    var diceDOM = document.getElementById("dice-1");
     diceDOM.src = "dice-" + dice + ".png";
     diceDOM.style.display = "block";
 
-    var diceDOM2 = document.querySelector(".dice2");
+    var diceDOM2 = document.getElementById("dice-2");
     diceDOM2.src = "dice-" + dice2 + ".png";
     diceDOM2.style.display = "block";
 
     // If the previous and current roll is equal to 6, reset the players entire score
-    if (previousRoll === 6 && dice == 6 || previousRoll2 === 6 && dice2 == 6) {
-      console.log("fuasdf workd!");
-      roundScore = 0;
+    if (
+      (previousRoll === 6 && dice == 6) ||
+      (previousRoll2 === 6 && dice2 == 6)
+    ) {
+      console.log("rolled two consecutive sixes", dice, previousRoll, dice2, previousRoll2);
       scores[activePlayer] = 0;
-      // document.querySelector('#current-' + activePlayer).textContent = 0
-      // document.querySelector("#score-" + activePlayer).textContent = 0
-      previousRoll = 0;
-      previousRoll2 = 0;
-
+      document.querySelector("#score-" + activePlayer).textContent = "0";
       nextPlayer();
-    }
-    // Update the round score IF the rolled number was NOT a 1
-    else if (dice !== 1) {
+    } else if (dice2 === 1 || dice === 1) {
+      console.log("rolled a one");
+      roundScore = 0;
+      document.querySelector(
+        "#current-" + activePlayer
+      ).textContent = roundScore;
+      nextPlayer();
+    } else {
       // Add Score
       roundScore += dice + dice2;
       document.querySelector(
         "#current-" + activePlayer
       ).textContent = roundScore;
-      previousRoll = dice;
-      previousRoll2 = dice2;
+    }
 
-    } else if (dice2 === 1 || dice === 1) {
-        roundScore = 0
-        document.querySelector(
-            "#current-" + activePlayer
-          ).textContent = roundScore;
-    }
-    
-    
-    else {
-      // Next Player
-      previousRoll = dice;
-      previousRoll2 = dice2
-      nextPlayer();
-    }
-  } else {
-    previousRoll = 0;
-    previousRoll2 = 0;
+    previousRoll = dice;
+    previousRoll2 = dice2;
   }
 });
 
@@ -82,6 +69,16 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     // Update the UI
     document.querySelector("#score-" + activePlayer).textContent =
       scores[activePlayer];
+
+    var input = document.querySelector(".final-score").value;
+
+    // Undefined, 0, null or "" are COERCED to false
+    // Anything else is COERCED to true
+    if (input) {
+      var winningScore = input;
+    } else {
+      winningScore = 100;
+    }
 
     // Check if player won the game
     if (scores[activePlayer] >= winningScore) {
@@ -121,7 +118,8 @@ function nextPlayer() {
   document.querySelector(".player-1-panel").classList.toggle("active");
 
   // Hiding dice when player rolls a one
-  document.querySelector(".dice").style.display = "none";
+  document.getElementById("dice-1").style.display = "none";
+  document.getElementById("dice-2").style.display = "none";
 }
 
 // Starts a new game
@@ -132,12 +130,11 @@ function init() {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
-  winningScore = 100;
   gamePlaying = true;
 
   // Hides the dice before first roll
-  document.querySelector(".dice").style.display = "none";
-  document.querySelector(".dice2").style.display = "none";
+  document.getElementById("dice-1").style.display = "none";
+  document.getElementById("dice-2").style.display = "none";
 
   // Setting the scores back to zero
   // Selecting elements by ID is slightly faster than querySelector
@@ -155,15 +152,6 @@ function init() {
 
   // Setting active class back to player 1
   document.querySelector(".player-0-panel").classList.add("active");
-}
-
-const input = document.querySelector("input");
-const log = document.getElementById("values");
-
-input.addEventListener("input", updateValue);
-
-function updateValue(e) {
-  winningScore = e.target.value;
 }
 
 // document.querySelector('#current-' + activePlayer).textContent = dice
