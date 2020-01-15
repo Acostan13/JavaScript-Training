@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 // Global Variables
-var scores, roundScore, activePlayer, gamePlaying, previousRoll, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll, previousRoll2, winningScore;
 
 // Starts the game
 init();
@@ -18,41 +18,58 @@ init();
 document.querySelector(".btn-roll").addEventListener("click", function () {
   // Checks if the game is playing by not allowing the user to roll the dice again
   if (gamePlaying) {
-    // Random dice value
+    // Random dice values
     var dice = Math.floor(Math.random() * 6) + 1;
-    // var dice = Math.floor(Math.random() * 2) + 5;
+    var dice2 = Math.floor(Math.random() * 6) + 1;
 
-    // Display the result
+    // Display the resulting die rolls
     var diceDOM = document.querySelector(".dice");
     diceDOM.src = "dice-" + dice + ".png";
     diceDOM.style.display = "block";
 
+    var diceDOM2 = document.querySelector(".dice2");
+    diceDOM2.src = "dice-" + dice2 + ".png";
+    diceDOM2.style.display = "block";
+
     // If the previous and current roll is equal to 6, reset the players entire score
-    if (previousRoll === 6 && dice == 6) {
+    if (previousRoll === 6 && dice == 6 || previousRoll2 === 6 && dice2 == 6) {
       console.log("fuasdf workd!");
       roundScore = 0;
       scores[activePlayer] = 0;
       // document.querySelector('#current-' + activePlayer).textContent = 0
       // document.querySelector("#score-" + activePlayer).textContent = 0
       previousRoll = 0;
+      previousRoll2 = 0;
 
       nextPlayer();
     }
     // Update the round score IF the rolled number was NOT a 1
     else if (dice !== 1) {
       // Add Score
-      roundScore += dice;
+      roundScore += dice + dice2;
       document.querySelector(
         "#current-" + activePlayer
       ).textContent = roundScore;
       previousRoll = dice;
-    } else {
+      previousRoll2 = dice2;
+
+    } else if (dice2 === 1 || dice === 1) {
+        roundScore = 0
+        document.querySelector(
+            "#current-" + activePlayer
+          ).textContent = roundScore;
+    }
+    
+    
+    else {
       // Next Player
       previousRoll = dice;
+      previousRoll2 = dice2
       nextPlayer();
     }
   } else {
     previousRoll = 0;
+    previousRoll2 = 0;
   }
 });
 
@@ -120,6 +137,7 @@ function init() {
 
   // Hides the dice before first roll
   document.querySelector(".dice").style.display = "none";
+  document.querySelector(".dice2").style.display = "none";
 
   // Setting the scores back to zero
   // Selecting elements by ID is slightly faster than querySelector
