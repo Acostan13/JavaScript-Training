@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 // Global Variables
-var scores, roundScore, activePlayer, gamePlaying, previousRoll;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll, winningScore;
 
 // Starts the game
 init();
@@ -67,7 +67,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       scores[activePlayer];
 
     // Check if player won the game
-    if (scores[activePlayer] >= 0) {
+    if (scores[activePlayer] >= winningScore) {
       document.querySelector("#name-" + activePlayer).textContent = "Winner!";
       document.querySelector(".dice").style.display = "none";
       document
@@ -115,6 +115,7 @@ function init() {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
+  winningScore = 100;
   gamePlaying = true;
 
   // Hides the dice before first roll
@@ -136,6 +137,15 @@ function init() {
 
   // Setting active class back to player 1
   document.querySelector(".player-0-panel").classList.add("active");
+}
+
+const input = document.querySelector("input");
+const log = document.getElementById("values");
+
+input.addEventListener("input", updateValue);
+
+function updateValue(e) {
+  winningScore = e.target.value;
 }
 
 // document.querySelector('#current-' + activePlayer).textContent = dice
