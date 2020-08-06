@@ -79,3 +79,35 @@ console.log(typeof ageJohn);
 console.log(typeof 'Mark is older tha John');
 var x;
 console.log(typeof x);
+
+/***************************** 
+* Operrator operators 
+*/ 
+var now = 2018
+var yearJohn = 1989 
+var fullAge = 18
+
+// Multiple operators
+var isFullAge = now - yearJohn >= fullAge
+console.log(isFullAge) // True
+
+// Grouping
+var ageJohn = now - yearJohn
+var ageMark = 35
+var average = (ageJohn + ageMark) / 2 
+console.log(average) // 32
+
+// Multiple assignments
+var x, y
+x = y = (3 + 5) * 4 - 6 // 8 * 4 - 6 // 32 - 6 // 26
+console.log(x, y) // 26, 26
+
+// More operators
+x = x * 2
+x *= 2 // same thing as line above
+console.log(x) // 52
+
+x +=10
+console.log(x) // 62
+x++ // adds one unit to the variable
+x++ // subtracts one unit to the variable
