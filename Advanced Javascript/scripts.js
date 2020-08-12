@@ -31,3 +31,23 @@ console.log(jane.lastName) // Smith
 var mark = new Person('Mark', 1950, 'retired')
 john.calculateAge()  // 70
 console.log(mark.lastName) // Smith
+
+// Object.create
+var personProto = {
+    calculateAge: function() {
+        console.log(2020 - this.yearOfBirth)
+    }
+}
+
+var james = Object.create(personProto)
+james.name = 'James'
+james.yearOfBirth = '1990'
+james.job = 'teacher'
+
+var jana = Object.create(personProto,
+    {
+        name: {value: 'Jana'},
+        yearOfBirth: {value: 1970},
+        job: {value: 'designer'}
+    }
+)
