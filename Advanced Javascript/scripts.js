@@ -151,3 +151,24 @@ otherQuestion('Joe') // Hello Joe, what do you do?
 
 // Returns function within function
 interviewQuestion('teacher')('Mark') // What subject do you teach, John?
+
+// Immediately Invoked Function Expressions (IIFE)
+
+function game() {
+    var score = Math.random() * 10
+    console.log(score => 5)
+}
+
+game()
+
+// IIFE
+(function () {
+    var score = Math.random() * 10
+    console.log(score => 5)
+})()
+
+// IIFE with an arguement
+(function (goodLuck) {
+    var score = Math.random() * 10
+    console.log(score => 5 - goodLuck)
+})(5)
