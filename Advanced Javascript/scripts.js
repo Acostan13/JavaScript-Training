@@ -25,11 +25,11 @@ john.calculateAge()  // 30
 console.log(john.lastName) // Smith
 
 var jane = new Person('Jane', 1970, 'designer')
-john.calculateAge()  // 50
+jane.calculateAge()  // 50
 console.log(jane.lastName) // Smith
 
 var mark = new Person('Mark', 1950, 'retired')
-john.calculateAge()  // 70
+mark.calculateAge()  // 70
 console.log(mark.lastName) // Smith
 
 // Object.create
@@ -292,3 +292,6 @@ var ages = arrayCalc(years, calculateAge)
 var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20))
 console.log(ages) // [30, 55, 83, 15, 12]
 console.log(fullJapan) // [true, true, true, false, true]
+
+
+// Coding Challenge
