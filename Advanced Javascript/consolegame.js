@@ -23,54 +23,103 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
+/*
+--- Expert level ---
+8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result)
+
+9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8.
+
+10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
+
+11. Display the score in the console. Use yet another method for this.
+*/
+
+
+
+
 // Using an IIFE to make code private
 (function() {
 
-// Function constructor
-function Question(question, choices, answer) {
-    this.question = question
-    this.choices = choices
-    this.answer = answer
-}
-
-// Questions
-var firstQuestion = new Question('What is love?', ['Baby don\'t hurt me', 'Biological phenomena', 'Used for procreation', 'All of the above'], 3)
-var secondQuestion = new Question('What\'s the best fruit?', ['Pineapple', 'Watermelon', 'Apple', 'Orange'], 0)
-
-// Stored questions in array
-var questions = [firstQuestion, secondQuestion]
-
-// Find random question
-var random = Math.floor(Math.random() * questions.length)
-
-// Method for question object to display random question
-Question.prototype.randomQuestion = function() {
-    console.log(this.question)
-
-    for (var i = 0; i < this.choices.length; i++) {
-        console.log(i + ': ' + this.choices[i])
+    // Function constructor
+    function Question(question, choices, answer) {
+        this.question = question
+        this.choices = choices
+        this.answer = answer
     }
 
-}
+    // Method for question object to display random question
+    Question.prototype.randomQuestion = function() {
+        console.log(this.question)
 
-// Checks if the user's answer is correct
-Question.prototype.checkAnswer = function(answer) {
-    
-    if(answer == this.answer) {
-        console.log('Correct!')
-    } else {
-        console.log('Close but no cigar')
+        for (var i = 0; i < this.choices.length; i++) {
+            console.log(i + ': ' + this.choices[i])
+        }
+
     }
-}
 
-// Calls a random question
-questions[random].randomQuestion()
+    // Checks if the user's answer is correct
+    Question.prototype.checkAnswer = function(answer, callback) {
+        // Tracks the users score
+        var score
 
-// Prompts user to enter an answer
-var response = prompt('Please enter the correct number')
+        if(answer == this.answer) {
+            console.log('Correct!')
+            score = callback(true)
+        } else {
+            console.log('Close but no cigar')
+            score = callback(false)
+        }
 
-// Passes users response to checkAnswer method
-questions[random].checkAnswer(response)
+        this.displayScore(score)
+    }
+
+    // Displays the users total score
+    Question.prototype.displayScore = function(score) {
+        console.log('Your current score is ' + score)
+        console.log('-----------------------------')
+    }
+
+    // Questions
+    var firstQuestion = new Question('What is love?', ['Baby don\'t hurt me', 'Biological phenomena', 'Used for procreation', 'All of the above'], 3)
+    var secondQuestion = new Question('What\'s the best fruit?', ['Pineapple', 'Watermelon', 'Apple', 'Orange'], 0)
+
+    // Stored questions in array
+    var questions = [firstQuestion, secondQuestion]
+
+    // Adds to the users score if they get the question correct by using closures
+    function score() {
+        // Total Score
+        var score = 0
+        return function(correct) {
+            if (correct) {
+                score++
+            }
+            return score
+        }
+    }
+
+    var keepScore = score()
+
+    var playAgain = function() {
+
+        // Find random question
+        var random = Math.floor(Math.random() * questions.length)
+
+        // Calls a random question
+        questions[random].randomQuestion()
+
+        // Prompts user to enter an answer
+        var response = prompt('Please enter the correct number')
+
+        // Ends game
+        if(response !== 'exit') {
+            // Passes users response to checkAnswer method
+            questions[random].checkAnswer(response, keepScore)
+            playAgain()
+        }
+    }
+
+    playAgain()
 
 })()
 
