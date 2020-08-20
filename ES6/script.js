@@ -1,4 +1,4 @@
-// Lecture: let and const
+// let and const
 
 // ES5
 var nameES5 = "Jane Smith"
@@ -55,3 +55,22 @@ for (let i = 0; i < 5; i++) {
 }
 
 console.log(i) // 23
+
+// Blocks and IIFEs
+
+// ES6
+{
+    const a = 1
+    let b = 2
+    var c = 3
+}
+
+console.log(a + b) // ReferenceError: a is not defined
+console.log(c) // 3 => var is function scoped
+
+// ES5
+(function(){
+    var c = 3
+})()
+
+console.log(c) // ReferenceError: c is not defined
