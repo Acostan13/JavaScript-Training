@@ -74,3 +74,29 @@ console.log(c) // 3 => var is function scoped
 })()
 
 console.log(c) // ReferenceError: c is not defined
+
+// Strings
+
+let firstName = 'John'
+let lastName = 'Smith'
+const yearOfBirth = 1990
+
+function calcAge(year) {
+    return 2020 - year
+}
+
+// ES5
+console.log('This is' + firstName + ' ' + lastName + ' . he was born in ' + yearOfBirth + '. Today, he is ' + calcAge(yearOfBirth) + ' years old.') 
+
+// ES6 Template Literals
+console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`)
+
+const n = `${firstName} ${lastName}`
+console.log(n.startsWith('J')) // True
+console.log(n.startsWith('j')) // False
+console.log(n.endsWith('th')) // True
+console.log(n.endsWith('Sm')) // False
+console.log(n.includes(' ')) // True
+console.log(n.includes('oh')) // True
+console.log(firstName.repeat(5)) // JohnJohnJohnJohnJohn
+console.log(`${firstName} `.repeat(5)) // John John John John John
