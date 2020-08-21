@@ -100,3 +100,23 @@ console.log(n.includes(' ')) // True
 console.log(n.includes('oh')) // True
 console.log(firstName.repeat(5)) // JohnJohnJohnJohnJohn
 console.log(`${firstName} `.repeat(5)) // John John John John John
+
+// Arrow Functions
+
+const years = [1990, 1965, 1982, 1937]
+
+// ES5
+var agesES5 = years.map(function(el) {
+  return 2020 - el
+})
+
+// ES6
+let agesES6 = years.map(el => 2020 - el)
+
+agesES6 = years.map((el, index) => `Age element ${index + 1}: ${2020 - el}.`)
+
+agesES6 = years.map((el, index) => {
+  const now = new Date().getFullYear()
+  const age = now - el
+  return `Age element ${index + 1}: ${age}.`
+})
