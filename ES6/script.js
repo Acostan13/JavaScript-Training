@@ -172,3 +172,38 @@ Person.prototype.myFriends5 = friends => {
 
 var friends = ['Bob', 'Jane', 'Mark']
 new Person('John').myFriends5(friends)
+
+// Destructuring
+
+// ES5
+var john = ['John', 26]
+var name = john[0]
+var age = john[1]
+
+// ES6
+const [name, age] = ['John', 26]
+console.log(name, age) // => John, 26
+
+// ES5
+const obj = {
+  firstName: 'John',
+  lastName: 'Smith'
+}
+
+// ES6
+const {firstName, lastName} = obj
+console.log(firstName, lastName) // => John, Smith
+
+const {firstName: a, lastName: b} = obj
+console.log(a) // => John
+console.log(b) // => Smith
+
+
+function calcAgeRetirement(year) {
+  const age = new Date().getFullYear() - year
+  return [age, 65 - age]
+}
+
+// Destructuring an array
+const [age, retirement] = calcAgeRetirement(1990)
+console.log(age, retirement) // => 30, 35
