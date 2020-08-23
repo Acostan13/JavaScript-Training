@@ -444,3 +444,20 @@ const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10)
 
 johnAthlete6.wonMedal() // 11
 johnAthlete6.calculateAge() // 30
+
+
+// Coding Challenge
+// Suppose that you're working in a small town administration, and you're in charge of two town elements:
+// 1. Parks
+// 2. Streets
+
+
+// It's a very small town, as there are only 3 parks and 4 streets. All the parks and streets have a name and a build year.
+// At an end-of-year meeting, your boss wants a final reports with the following:
+// 1. Tree density of each park in the town (formula: number of trees/park area)
+// 2. The name of the park that has more than 1000 trees
+// 4. Total and average length of thw town's streets
+// 5. Size classification of all streets: tiny/small/normal/big/huge
+// If the size is unknown, the default is normal
+
+// All the report data should be printed to the console
