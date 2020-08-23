@@ -250,3 +250,32 @@ console.log(ages[full.indexOf(true)])
 // ES6
 ages.findIndex(cur => cur >= 18) // 3
 ages.find(cur => cur >= 18) // 21
+
+// Spread Operator
+
+function addFourAges (a, b, c, d) {
+  return a + b + c + d
+}
+
+var sum1 = addFourAges(18, 30, 12, 21)
+console.log(sum1) // 81
+
+// ES5
+var ages = [18, 30, 12, 31]
+var sum2 = addFourAges.apply(null, ages)
+console.log(sum2) // 81
+
+// ES6
+const max3 = addFourAges(...ages)
+console.log(max3)
+
+const familySmith = ['John', 'Jane', 'Mark']
+const familyMiller = ['Mary', 'Bob', 'Ann']
+const bigFamily = [...familySmith, 'Lily', ...familyMiller]
+console.log(bigFamily) // Combines all const above
+
+const h = document.querySelector('.h1')
+const boxes = document.querySelectorAll('.box')
+const all = [h, ...boxes]
+
+Array.from(all).forEach(cur => cur.style.color = 'purple')
