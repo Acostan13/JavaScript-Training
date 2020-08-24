@@ -376,7 +376,7 @@ var Person5 = function(name, yearOfBirth, job) {
 }
 
 Person.prototype.calculateAge = function() {
-  var age = new Date().getFullYear - this.yearOfBirth
+  var age = new Date().getFullYear() - this.yearOfBirth
   console.log(age)
 }
 
@@ -391,7 +391,7 @@ class Person6 {
   }
 
   calculateAge() {
-    var age = new Date().getFullYear - this.yearOfBirth
+    var age = new Date().getFullYear() - this.yearOfBirth
     console.log(age)
   }
 
@@ -403,3 +403,44 @@ class Person6 {
 const john6 = new Person6('John', 1990, 'teacher')
 
 Person6.greeting() // Hey there!
+
+// Classes with subclasses
+// ES5
+
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals) {
+  Person5.call(this, name, yearOfBirth, job)
+  this.olympicGames = olympicGames
+  this.medals = medals
+}
+
+Athlete5.prototype = Object.create(Person5.prototype)
+
+Athlete5.prototype.wonMedal = function () {
+  this.medals++
+  console.log(this.medals)
+}
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10)
+
+johnAthlete5.calculateAge() // 30
+johnAthlete5.wonMedal() // 11
+
+// ES6
+
+class Athlete6 extends Person {
+  constructor(name, yearOfBirth, job, olympicGames, medals){
+    super(name, yearOfBirth, job)
+    this.olympicGames = olympicGames
+    this.medals = medals
+  }
+
+  wonMedal() {
+    this.medals++
+    console.log(this.medals)
+  }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10)
+
+johnAthlete6.wonMedal() // 11
+johnAthlete6.calculateAge() // 30
