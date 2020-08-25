@@ -509,7 +509,7 @@ function calc(arr) {
   // Reduce() - used to reduce an array to a single value
   // Accumulates all the values in an array
   const sum = arr.reduce((prev, cur, index) => prev + cur, 0)
-  
+  return [sum, sum / arr.legnth]
 }
 
 
@@ -520,14 +520,24 @@ function reportParks(p) {
   p.forEach(el => el.treeDensity())
 
   // Average age
-
+  const ages = p.map(el => Date().getFullYear() - el.buildYear)
+  const [totalAge, avgAge] = calc(ages)
+  console.log(`Our ${p.length} parks have a total age of ${totalAge} years, an average of ${avgAge} years.`)
 
   // Which park has more than 1000 trees
-
+  const i = p.map(el => el.numTrees).findIndex(el => el => 1000)
+  console.log(`${p[i].name} has more than 1000 trees`)
 }
 
 function reportSteets(s) {
+  console.log('-----Streets Report-----')
+   
+  // Total and average length of the town's streets
+  const [totalLength, avgLength] = calc(s.map(el => el.length))
+  console.log(`Our ${s.length} streets have a total length of ${totalLength} miles, with an average of ${avgLength} miles.`)
 
+  // Classify sizes
+  s.forEach(el => el.classifyStreet())
 }
 
 reportParks(allParks)
